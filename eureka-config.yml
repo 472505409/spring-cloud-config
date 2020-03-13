@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: peer1
 
 ---
 server:
