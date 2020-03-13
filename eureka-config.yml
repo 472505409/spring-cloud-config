@@ -1,0 +1,64 @@
+spring:
+  profiles:
+    active: dev
+
+---
+server:
+  port: 81
+ 
+spring:
+  profiles: peer1
+  application:
+    name: eureka-serve-peer1
+
+eureka:
+  instance:
+    hostname: peer1
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://peer2:82/eureka/,http://peer3:83/eureka/
+  server:
+    enable-self-preservation: false     #关闭自我保护机制
+
+---
+server:
+  port: 82
+ 
+spring:
+  profiles: peer2
+  application:
+    name: eureka-serve-peer2
+
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://peer1:81/eureka/,http://peer3:83/eureka/
+  server:
+    enable-self-preservation: false     #关闭自我保护机制
+
+---
+
+server:
+  port: 83
+ 
+spring:
+  profiles: peer3
+  application:
+    name: eureka-serve-peer3
+
+eureka:
+  instance:
+    hostname: peer3
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://peer1:81/eureka/,http://peer2:82/eureka/
+  server:
+    enable-self-preservation: false     #关闭自我保护机制
